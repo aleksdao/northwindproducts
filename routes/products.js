@@ -20,9 +20,9 @@ router.get("/active", function(req, res, next) {
   .find({active: true})
   .exec()
   .then(function(products) {
-    products = products;
+    console.log(products)
+    res.render("products", {products: products})
   })
-  res.render("products", {products: products});
 
 });
 
