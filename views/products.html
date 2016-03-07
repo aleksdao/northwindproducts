@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div>
+      <ul class="nav nav-tabs">
+        <li><a href="/">Home</a></li>
+        <li class="active"><a href="/products">Products</a></li>
+      </ul>
+      <form action="/products" method="post">
+        <input type="text" name="name" value="Product name..."> <input type="submit" value="Add a product"><br>
+        <input type="text" name="description" value="Description of product...">
+      </form>
+    </div>
+    <div>
+      <ul class="list-unstyled">
+      {% for product in products %}
+        <li class="row"><a href="{{product.route}}">{{product.name}}</a>
+          <form action="/products/{{product.name}}/quantity?_method=PUT" method="POST">
+            <input type="number" name="quantity" value="{{product.quantity}}"><input type="submit" class="btn btn-primary" value="Update # in Stock">
+          </form>
+          <form action="/products/{{product.name}}/available?_method=PUT" method="POST">
+            <input type="submit" {% if product.active %} class="btn btn-danger" value="discontinue" {% else %} class="btn btn-success" value="recontinue" {% endif %}>
+          </form>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </body>
