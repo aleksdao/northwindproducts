@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- TODO - use layout -->
 <html lang="en">
   <head>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
@@ -10,14 +11,18 @@
         <li class="active"><a href="/products">Products</a></li>
       </ul>
       <form action="/products" method="post">
-        <input type="text" name="name" value="Product name..."> <input type="submit" value="Add a product"> <a href="/products/active">Show active only</a><br>
+        <input type="text" name="name" value="Product name..."> <input type="submit" value="Add a product"> 
+        <!-- why is in form -->
+        <a href="/products/active">Show active only</a><br>
         <input type="text" name="description" value="Description of product...">
       </form>
     </div>
     <div>
       <ul class="list-unstyled">
       {% for product in products %}
-        <li class="row"><a href="{{product.route}}">{{product.name}}</a>
+      <!-- TODO think about using some partials to make this cleaner ? -->
+        <li class="row">
+          <a href="{{product.route}}">{{product.name}}</a>
           <form action="/products/{{product.name}}/quantity?_method=PUT" method="POST">
             <input type="number" name="quantity" value="{{product.quantity}}"><input type="submit" class="btn btn-primary" value="Update # in Stock">
           </form>
